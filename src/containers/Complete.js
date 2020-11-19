@@ -40,7 +40,7 @@ class Complete extends Component {
             Congratulations!
             <br /><br /> First part of the experiment is over.
             <br /><br /> Now we will continue with the next trials. Now, there will be ratings similar to the second practice.
-            <br /><br /> You will see a rating screen following each blue diagonal stripes, press
+            <br /><br /> You will see a rating screen following each red diagonal stripes, press
             <br /><br /> and then hold the <b> "Q"/YES </b> button or <b> "E"/NO </b> button.
             <br /><br /> The longer you hold it down, the more certain you are of your choice.
             <br /><br /> If you hold <b> "Q"/YES </b>  button down for a long time, you are very certain that you  <b> DO </b> hear the tone.
