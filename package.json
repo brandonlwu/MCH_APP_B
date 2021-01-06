@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "aws-sdk": "^2.494.0",
+    "aws-sdk": "^2.822.0",
     "bootstrap": "^4.3.1",
     "browserify-fs": "^1.0.0",
     "connected-react-router": "^6.5.2",
@@ -17,9 +17,9 @@
     "jspsych-react": "^0.2.2",
     "mocha": "^6.1.4",
     "node-rsa": "^1.0.5",
-    "query-string": "^6.8.1",
+    "query-string": "^6.13.8",
     "querystring": "^0.2.0",
-    "questlib": "^1.0.9",
+    "questlib": "^1.0.11",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.9",
     "react-dom": "^16.8.6",
@@ -29,7 +29,7 @@
     "react-scripts": "^3.1.1",
     "redux": "^4.0.4",
     "requirejs": "^2.3.6",
-    "set-interval-async": "^1.0.25",
+    "set-interval-async": "^1.0.34",
     "simplex-noise": "^2.4.0"
   },
   "scripts": {
@@ -50,9 +50,9 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.4",
-    "@babel/register": "^7.4.4",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/register": "^7.12.10",
     "gh-pages": "^2.0.1",
     "html-loader": "^0.5.5",
     "jsdom": "15.1.1",
