@@ -37,7 +37,7 @@ class VisualStimulus extends Component {
 
     const w = canvas.width;
     const h = canvas.height;
-    const l = Math.max(100, canvas.height / 8);
+    const l = Math.max(1, canvas.height / 18);
     const xFloor = Math.floor(w / l);
     const yFloor = Math.floor(h / l);
     let xOffset = ((w / l) - xFloor) / 2 * l;
