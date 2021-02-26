@@ -152,7 +152,13 @@ class Trial extends Component {
     // Play stimuli
     that.playVisualStimulus(VISUAL_STIMULUS_MS);
     const amp = that.props.decibels[that.state.index];
+<<<<<<< HEAD
     playAuditoryStimulus(auditoryStim, that.audioContext, STIMULUS_MS, amp);
+=======
+    console.log(JSON.stringify({ amp }));
+    //playAuditoryStimulus(auditoryStim, that.audioContext, STIMULUS_MS, amp);
+    playAuditoryStimulus(that.audioContext, amp);
+>>>>>>> e558417... Log amp to console for automated testing
 
     this.stimulusTimer = setTimeout(
       this.playStimulus,
