@@ -1,3 +1,5 @@
+const mySound = require("../media/demoG.mp3");
+
 export const visualStim = createVisualStim();
 export const patch = createPatch(visualStim);
 export const stimulus_blank = createGabor(patch, 0);
@@ -88,6 +90,11 @@ function createPatch(stim) {
  // amp is a value in [0,1]
  export function playAuditoryStimulus(stim, audioContext, duration, decibel) {
    beep(decibel, stim.frequency, duration ? duration : stim.duration, audioContext);
+ }
+
+ export function playGNote() {
+   let GNote = new Audio('../media/demoG.mp3');
+   GNote.play();
  }
 
  //amp:0..100, freq in Hz, ms

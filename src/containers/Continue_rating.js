@@ -29,7 +29,9 @@ class Continue_rating extends Component {
 
       render() {
         if(this.state.continue === true){
-          return <Redirect to="/TrialQ" />
+          //return <Redirect to="/TrialQ" /> //Previous code
+          return <Redirect to="/Trial_P_surprisal" /> 
+
         }
 
       return (

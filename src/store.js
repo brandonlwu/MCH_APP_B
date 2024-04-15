@@ -24,6 +24,8 @@ export const RESPONSE_KEY = 'response';
 export const RESPONSE_TIME_KEY = 'responseTime';
 export const RATINGS_KEY = 'ratings';
 export const RATINGS_RAW_KEY = 'ratingsRaw';
+export const SURPRISALS_KEY = 'surprisals';
+export const SURPRISALS_RAW_KEY = 'surprisalsRaw';
 export const TIMESTAMPS_KEY = 'timestamps';
 export const START_TIMESTAMP_KEY = 'startTimestamp';
 
@@ -101,7 +103,7 @@ function getComponentKey(componentNum) {
   return COMPONENT_KEY_PREFIX + componentNum;
 }
 
-export function setComponentData(componentNum, decibels, response, responseTime, ratings, ratingsRaw, timestamps, startTimestamp) {
+export function setComponentData(componentNum, decibels, response, responseTime, ratings, ratingsRaw, surprisals, surprisalsRaw, timestamps, startTimestamp) {
   const store = LocalStorageBackedStore.store;
   const key = getComponentKey(componentNum);
 
@@ -114,6 +116,12 @@ export function setComponentData(componentNum, decibels, response, responseTime,
   }
   if (!_.isUndefined(ratingsRaw)) {
     store[key][RATINGS_RAW_KEY] = ratingsRaw;
+  }
+  if (!_.isUndefined(surprisals)) {
+    store[key][SURPRISALS_KEY] = surprisals;
+  }
+  if (!_.isUndefined(surprisalsRaw)) {
+    store[key][SURPRISALS_RAW_KEY] = surprisalsRaw;
   }
   store[key][TIMESTAMPS_KEY] = timestamps;
   store[key][START_TIMESTAMP_KEY] = startTimestamp;

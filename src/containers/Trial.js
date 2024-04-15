@@ -15,6 +15,18 @@ import { Redirect } from "react-router-dom";
 
 import { getStore, getEncryptedMetadata, getDataSent } from "../store";
 
+// const mySound = require("../media/demoG.mp3");
+
+import gNoteSound from "../media/Gtone.wav";
+
+
+import HearClips from "../lib/PracticeHearAudio.js";
+import ConfidenceClips from "../lib/PracticeConfidenceAudio.js";
+import SurprisalClips from "../lib/PracticeSurprisalAudio.js";
+
+import TestClips from "../lib/TestStimAudio.js";
+
+
 var _ = require("lodash");
 const config = require("../config");
 var AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -28,10 +40,24 @@ const KEY_CODE_TO_RATING = {
   52: 4,
   53: 5,
 };
+
+const KEY_CODE_TO_SURPRISAL = {
+  49: 1,
+  50: 2,
+  51: 3,
+  52: 4,
+  53: 5,
+};
+
 // We want key codes in number form, hence the parseInt
 const RATING_KEY_CODES = _.map(_.keys(KEY_CODE_TO_RATING), (k) =>
   parseInt(k, 10)
 );
+
+const SURPRISAL_KEY_CODES = _.map(_.keys(KEY_CODE_TO_SURPRISAL), (k) =>
+  parseInt(k, 10)
+);
+
 const VISUAL_STIMULUS_MS = 1000;
 const STIMULUS_MS = 1000;
 
@@ -51,7 +77,9 @@ class Trial extends Component {
       showContrast: false,
       responseWindow: false,
       ratingWindow: false,
+      surprisalWindow: false,
       trialStarted: false,
+      trialStartedUp: false,
       complete: false,
       invalid: false,
       readyToStart: false,
@@ -61,6 +89,15 @@ class Trial extends Component {
       currentRating: 1,
       stopIncrementingRating: false,
       stopShowingRating: false,
+
+      // surprisals related state
+      currentSurprisal: 1,
+      stopIncrementingSurprisal: false,
+      stopShowingSurprisal: false,
+
+      // confidence vs surprisal state
+      confidenceFinished: false,
+      surprisalReady: false,
     };
 
     // class props init
@@ -76,16 +113,21 @@ class Trial extends Component {
     this.responseTime = [];
     this.ratings = [];
     this.ratingsRaw = [];
+    this.surprisals = [];
+    this.surprisalsRaw = [];
     this.timestamps = [];
 
     // timers
     this.ratingTimer = undefined;
+    this.surprisalTimer = undefined;
     this.stimulusTimer = undefined;
+    this.finishedTimer = undefined;
 
     // time keeping
     this.componentStartTime = 0;
     this.startTime = 0;
     this.ratingStartTime = 0;
+    this.surprisalStartTime = 0;
     this.timebox = null;
     this.numIterations = 0;
 
@@ -148,24 +190,65 @@ class Trial extends Component {
     // Start time window for receiving a response
     that.setState({ responseWindow: true });
     that.startTime = new Date().getTime();
-
-    // Play stimuli
-    that.playVisualStimulus(VISUAL_STIMULUS_MS);
+    
     const amp = that.props.decibels[that.state.index];
-<<<<<<< HEAD
-    playAuditoryStimulus(auditoryStim, that.audioContext, STIMULUS_MS, amp);
-=======
-    console.log(JSON.stringify({ amp }));
-    //playAuditoryStimulus(auditoryStim, that.audioContext, STIMULUS_MS, amp);
-    playAuditoryStimulus(that.audioContext, amp);
->>>>>>> e558417... Log amp to console for automated testing
 
-    this.stimulusTimer = setTimeout(
-      this.playStimulus,
-      that.delay + that.jitter()
-    );
+    if (that.props.audioSource.length == 0) {
+      setTimeout(() => {
+        // Play stimuli
+        that.playVisualStimulus(VISUAL_STIMULUS_MS);
 
-    this.addTimestamp("stim");
+        //// prev code
+        // playAuditoryStimulus(auditoryStim, that.audioContext, STIMULUS_MS, amp);
+
+        // new code
+        let GNote = new Audio(gNoteSound);
+        console.log("amp " + amp)
+        console.log("volume" + (0.061 + (amp-58)/100.0))
+        GNote.volume = 0.061 + (amp-58)/100.0;
+        GNote.play();
+
+        this.stimulusTimer = setTimeout(
+          this.playStimulus,
+          that.delay + that.jitter()
+        );
+        
+      }, 500);
+
+      this.addTimestamp("stim");
+    } else {
+
+      let melody = new Audio(that.props.audioSource[that.state.index]);
+      melody.volume = 0.2;
+      melody.play();
+
+      
+      setTimeout(() => {
+        // Play stimuli
+        that.playVisualStimulus(VISUAL_STIMULUS_MS);
+
+
+        // new code
+        melody.pause();
+        melody.currentTime = 0;
+
+        //// prev code
+        // playAuditoryStimulus(auditoryStim, that.audioContext, STIMULUS_MS, amp);
+
+        // new code
+        let GNote = new Audio(gNoteSound);
+        GNote.volume = amp/1000.0;
+        GNote.play();
+
+        this.stimulusTimer = setTimeout(
+          this.playStimulus,
+          that.delay + that.jitter()
+        );
+        
+      }, 2420);
+
+      this.addTimestamp("stim");
+    }
   };
 
   startTrial() {
@@ -195,6 +278,8 @@ class Trial extends Component {
       this.responseTime,
       this.ratings,
       this.ratingsRaw,
+      this.surprisals,
+      this.surprisalsRaw,
       this.timestamps
     );
   }
@@ -252,10 +337,13 @@ class Trial extends Component {
         {this.state.trialStarted ? (
           <div className="Trial-stimulus">
             <VisualStimulus
-              showContrast={this.state.showContrast}
-              showRatings={this.state.ratingWindow}
-              currentRating={this.state.currentRating}
-            />
+            showContrast={this.state.showContrast}
+            showRatings={this.state.ratingWindow}
+            showSurprisals={this.state.surprisalWindow}
+            currentRating={this.state.currentRating}
+            currentSurprisal={this.state.currentSurprisal}
+            surprisalReady={this.state.surprisalReady}
+          />
           </div>
         ) : (
           <p className="Trial-text">
@@ -300,8 +388,81 @@ class Trial extends Component {
 
       // If we're also recording ratings, then open the window
       // for receiving ratings
-      if (this.props.shouldRecordRatings) {
+
+      if (this.props.shouldRecordSurprisals) {
         clearTimeout(this.stimulusTimer);
+        this.setState({
+          ratingWindow: true,
+          surprisalWindow: true,
+          currentRating: that.numIterations || 1,
+          currentSurprisal: that.numIterations || 1,
+          stopShowingRating: false,
+          stopIncrementingRating: false,
+          confidenceFinished: false,
+          stopShowingSurprisal: false,
+          stopIncrementingSurprisal: false,
+        });
+
+
+        that.numIterations = that.numIterations || 0;
+
+        function scheduleSurprisal() {
+          that.numIterations++;
+          that.surprisalTimer = setTimeout(() => {
+            if (that.numIterations == 5 || that.state.stopShowingSurprisal) {
+              that.numIterations = 0;
+              that.prevKey = null;
+
+              that.finishSurprisalWindow();
+
+              //reset variables
+              that.setState({ surprisalReady: false,
+                confidenceFinished: false
+              });
+              return;
+            }
+            if (!that.state.stopIncrementingSurprisal) {
+              that.setState({ currentSurprisal: that.state.currentSurprisal + 1 });
+            }
+            scheduleSurprisal();
+          }, 250);
+        }
+
+        function checkReady() {
+          if(that.state.surprisalReady == false) {
+             that.finishedTimer = setTimeout(() => {checkReady(); console.log("not ready")}, 100); /* this checks the flag every 100 milliseconds*/
+          } else {
+            console.log("STARTING")
+            scheduleSurprisal();
+          }
+        }
+
+        function scheduleRating() {
+          that.numIterations++;
+          that.ratingTimer = setTimeout(() => {
+            if (that.numIterations == 5 || that.state.stopShowingRating) {
+              that.numIterations = 0;
+              that.prevKey = null;
+
+              that.setState({ confidenceFinished: true });
+              that.finishRatingWindow();
+              checkReady();
+              return;
+            }
+            if (!that.state.stopIncrementingRating) {
+              that.setState({ currentRating: that.state.currentRating + 1 });
+            }
+            scheduleRating();
+          }, 250);
+        }
+
+
+
+        this.ratingStartTime = new Date().getTime();
+        scheduleRating();
+     } else if (this.props.shouldRecordRatings) {
+        clearTimeout(this.stimulusTimer);
+        console.log('recording ratings')
         this.setState({
           ratingWindow: true,
           currentRating: that.numIterations || 1,
@@ -329,7 +490,7 @@ class Trial extends Component {
 
         this.ratingStartTime = new Date().getTime();
         scheduleRating();
-      } else {
+     } else {
         // Otherwise, move on to the next index
         this.prevKey = null;
         this.setState({ index: this.state.index + 1 });
@@ -365,32 +526,85 @@ class Trial extends Component {
 
     clearTimeout(this.timebox);
     this.timebox = setTimeout(() => {
-      this.setState({ stopIncrementingRating: false });
-      this.recordResponse(event);
+      if (this.props.shouldRecordSurprisals) {
+        console.log('should record surprisals')
+        if (this.state.confidenceFinished) {
+          console.log('confidence is finished and key has been clicked')
+          this.setState({ stopIncrementingSurprisal: false });
+          this.setState({ surprisalReady: true });
+        } else {
+          console.log('confidence is not finished and key has been clicked')
+          this.setState({ stopIncrementingRating: false });
+          this.recordResponse(event);
+        }
+      } else {
+        this.setState({ stopIncrementingRating: false });
+        this.recordResponse(event);
+      }
     }, 50);
   };
 
   keyUpFunction = (event) => {
-    if (_.includes([Q_KEY_CODE, E_KEY_CODE], event.keyCode)) {
-      this.isKeyDown[event.keyCode] = false;
-    }
+    if (this.props.shouldRecordSurprisals) {
+      if (_.includes([Q_KEY_CODE, E_KEY_CODE], event.keyCode)) {
+        this.isKeyDown[event.keyCode] = false;
+      }
 
-    this.setState({ stopIncrementingRating: true });
-    if (this.state.ratingWindow) {
-      if (this.timebox) {
-        setTimeout(() => {
-          this.timebox = null;
-          this.prevKey = null;
-        }, 250);
+      if (!this.trialStartedUp) {
+        this.trialStartedUp = true;
+        this.setState({ confidenceFinished: false });
+        this.setState({ surprisalReady: false });
+        return;
+      }
+
+      if (!this.state.surprisalReady) {
+        console.log('first up')
+        console.log('stop incrementing rating')
+        this.setState({ stopIncrementingRating: true });
       } else {
-        // Get response key code
-        const responseKeyCode =
-          _.last(this.response) == 1 ? Q_KEY_CODE : E_KEY_CODE;
-        if (responseKeyCode == event.keyCode) {
-          this.addTimestamp("rating");
+        console.log('stop incrementing surprisal ')
+        console.log('second up')
+        this.setState({ stopIncrementingSurprisal: true });
+      }
+      if (this.state.surprisalWindow) {
+        if (this.timebox) {
+          setTimeout(() => {
+            this.timebox = null;
+            this.prevKey = null;
+          }, 250);
+        } else {
+          // Get response key code
+          const responseKeyCode =
+            _.last(this.response) == 1 ? Q_KEY_CODE : E_KEY_CODE;
+          if (responseKeyCode == event.keyCode) {
+            this.addTimestamp("rating");
+            var ms = new Date().getTime();
+            this.ratingsRaw.push(ms - this.ratingStartTime);
+          }
+        }
+      }
+    } else {
+      if (_.includes([Q_KEY_CODE, E_KEY_CODE], event.keyCode)) {
+        this.isKeyDown[event.keyCode] = false;
+      }
 
-          var ms = new Date().getTime();
-          this.ratingsRaw.push(ms - this.ratingStartTime);
+      this.setState({ stopIncrementingRating: true });
+      this.setState({ stopIncrementingSurprisal: true });
+      if (this.state.ratingWindow) {
+        if (this.timebox) {
+          setTimeout(() => {
+            this.timebox = null;
+            this.prevKey = null;
+          }, 250);
+        } else {
+          // Get response key code
+          const responseKeyCode =
+            _.last(this.response) == 1 ? Q_KEY_CODE : E_KEY_CODE;
+          if (responseKeyCode == event.keyCode) {
+            this.addTimestamp("rating");
+            var ms = new Date().getTime();
+            this.ratingsRaw.push(ms - this.ratingStartTime);
+          }
         }
       }
     }
@@ -407,9 +621,35 @@ class Trial extends Component {
       this.setState({ stopIncrementingRating: true });
     }
 
+    if (!this.props.shouldRecordSurprisals) {
+      this.setState({
+        index: this.state.index + 1,
+        ratingWindow: false,
+      });
+      this.stimulusTimer = setTimeout(this.playStimulus, 1000 + this.jitter());
+    } else {
+      this.setState({
+        ratingWindow: false,
+      });
+    }
+  };
+
+  finishSurprisalWindow = () => {
+    this.surprisals.push(this.state.currentSurprisal);
+
+    if (this.surprisals.length > this.surprisalsRaw.length) {
+      this.addTimestamp("surprisal");
+
+      var ms = new Date().getTime();
+      this.surprisalsRaw.push(ms - this.surprisalStartTime);
+      this.setState({ stopIncrementingRating: true });
+      this.setState({ stopIncrementingSurprisal: true });
+    }
+
     this.setState({
       index: this.state.index + 1,
       ratingWindow: false,
+      surprisalWindow: false
     });
     this.stimulusTimer = setTimeout(this.playStimulus, 1000 + this.jitter());
   };
@@ -423,6 +663,8 @@ class Trial extends Component {
     console.log("all timestamps: " + JSON.stringify(this.timestamps));
     console.log("all ratingsRaw: " + this.ratingsRaw);
     console.log("all ratings: " + this.ratings);
+    console.log("all surprisalsRaw: " + this.surprisalsRaw);
+    console.log("all surprisals: " + this.surprisals);
 
     console.log("index: " + this.state.index);
     console.log("numAttempts: " + this.numAttempts);
@@ -436,7 +678,9 @@ Trial.defaultProps = {
   decibels: config.debug
     ? _.shuffle([65, 65, 65, 65])
     : _.concat([65], _.shuffle([0, 0, 0, 0, 0, 65, 65, 65, 65])),
+  audioSource: [],
   shouldRecordRatings: false,
+  shouldRecordSurprisals: false,
   trialCompleteRenderer: _.noop,
   responseHandler: _.noop,
   dataHandler: _.noop,
@@ -444,7 +688,9 @@ Trial.defaultProps = {
 
 Trial.propTypes = {
   decibels: PropTypes.array.isRequired,
+  audioSource: PropTypes.array.isRequired,
   shouldRecordRatings: PropTypes.bool,
+  shouldRecordSurprisals: PropTypes.bool,
   trialCompleteRenderer: PropTypes.func,
   responseHandler: PropTypes.func,
   dataHandler: PropTypes.func.isRequired,

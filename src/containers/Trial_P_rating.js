@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {setComponentData} from '../store';
 import {Redirect} from "react-router-dom";
 import Trial from './Trial';
+import ConfidenceClips from "../lib/PracticeConfidenceAudio.js";
 
 var _ = require('lodash');
 
@@ -42,6 +43,7 @@ class Trial_P_Rating extends Component {
   render() {
     return (
       <Trial
+        audioSource={ConfidenceClips}
         shouldRecordRatings={true}
         trialCompleteRenderer={this.trialCompleteRenderer}
         dataHandler={this.dataHandler}

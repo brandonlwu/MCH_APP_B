@@ -5,6 +5,11 @@ import RATINGS_2_SRC from "../media/rating_keydown_2.png";
 import RATINGS_3_SRC from "../media/rating_keydown_3.png";
 import RATINGS_4_SRC from "../media/rating_keydown_4.png";
 import RATINGS_5_SRC from "../media/rating_keydown_5.png";
+import SURPRISAL_1_SRC from "../media/surprisal_keydown_1.png";
+import SURPRISAL_2_SRC from "../media/surprisal_keydown_2.png";
+import SURPRISAL_3_SRC from "../media/surprisal_keydown_3.png";
+import SURPRISAL_4_SRC from "../media/surprisal_keydown_4.png";
+import SURPRISAL_5_SRC from "../media/surprisal_keydown_5.png";
 import './Trial.css';
 
 var _ = require('lodash');
@@ -20,6 +25,15 @@ const ratingToImgSrc = {
   3: RATINGS_3_SRC,
   4: RATINGS_4_SRC,
   5: RATINGS_5_SRC,
+}
+
+const surprisalToImgSrc = {
+  0: "", // Default
+  1: SURPRISAL_1_SRC,
+  2: SURPRISAL_2_SRC,
+  3: SURPRISAL_3_SRC,
+  4: SURPRISAL_4_SRC,
+  5: SURPRISAL_5_SRC,
 }
 
 class VisualStimulus extends Component {
@@ -91,6 +105,34 @@ class VisualStimulus extends Component {
   render() {
     return (
       <div>
+        {this.props.surprisalReady ? <>
+        <img src={surprisalToImgSrc[this.props.currentSurprisal]} width={CANVAS_LENGTH} height={CANVAS_LENGTH} className="center"
+        style={
+          {
+            zIndex: 101,
+            width: '95vh',
+            height: '50vh',
+            backgroundColor: "black",
+            visibility: this.props.showSurprisals ? 'visible' : 'hidden',
+          }
+         }
+        />
+        <div style={
+          {
+            zIndex: 100,
+            backgroundColor: "black",
+            width: "100vw",
+            height: "100vh",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            visibility: this.props.showSurprisals ? 'visible' : 'hidden',
+          }
+         }
+        ></div></>
+        :<></>}
+        {this.props.surprisalReady ? <></>:
+        <>
         <img src={ratingToImgSrc[this.props.currentRating]} width={CANVAS_LENGTH} height={CANVAS_LENGTH} className="center"
         style={
           {
@@ -114,7 +156,7 @@ class VisualStimulus extends Component {
             visibility: this.props.showRatings ? 'visible' : 'hidden',
           }
          }
-        ></div>
+        ></div></>}
         <canvas id="c"
           style={
             {
@@ -137,14 +179,19 @@ class VisualStimulus extends Component {
 VisualStimulus.defaultProps = {
   showContrast: false,
   showRatings: false,
+  showSurprisals: false,
   contrast: 0,
+  surprisalReady: false,
 }
 
 VisualStimulus.propTypes = {
   showContrast: PropTypes.bool.isRequired,
   showRatings: PropTypes.bool,
+  showSurprisals: PropTypes.bool,
   currentRating: PropTypes.number,
+  currentSurprisal: PropTypes.number,
   contast: PropTypes.number,
+  surprisalReady: PropTypes.bool,
 }
 
 export default VisualStimulus;

@@ -39,7 +39,7 @@ class TrialQ extends Component {
     // NOTE: Specify how many trials to run for each staircase here.
     // E.g., numTrialsPerStaircase = 40 means 80 trials total,
     // 40 per staircase.
-    const numTrialsPerStaircase = config.debug ? 2 : 40;
+    const numTrialsPerStaircase = config.debug ? 2 : 20;
 
     // Final bit of initialization
     this.index = 0;

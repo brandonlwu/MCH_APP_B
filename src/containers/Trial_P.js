@@ -4,6 +4,8 @@ import {Redirect} from "react-router-dom";
 import Trial from './Trial';
 import {setComponentData} from '../store';
 
+import HearClips from "../lib/PracticeHearAudio.js";
+
 var _ = require('lodash');
 
 class Trial_P extends Component {
@@ -42,6 +44,7 @@ class Trial_P extends Component {
   render() {
     return (
       <Trial
+        audioSource={HearClips}
         shouldRecordRatings={false}
         trialCompleteRenderer={this.trialCompleteRenderer}
         dataHandler={this.dataHandler}

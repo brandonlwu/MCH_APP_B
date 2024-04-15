@@ -6,11 +6,14 @@ import NotFound from "./containers/NotFound";
 import Complete from "./containers/Complete";
 import Continue from "./containers/Continue";
 import Continue_rating from "./containers/Continue_rating";
+import Continue_surprisal from "./containers/Continue_surprisal";
 import TrialQ from "./containers/TrialQ";
 import Trial_P from "./containers/Trial_P";
 import Trial_P_rating from "./containers/Trial_P_rating";
 import OnceMore from "./containers/OnceMore";
 import OnceMore_rating from "./containers/OnceMore_rating";
+import OnceMore_surprisal from "./containers/OnceMore_surprisal";
+import Trial_P_surprisal from "./containers/Trial_P_surprisal";
 import Trial_TT_1 from "./containers/Trial_TT_1";
 import Trial_TT_2 from "./containers/Trial_TT_2";
 import Trial_TT_3 from "./containers/Trial_TT_3";
@@ -33,6 +36,9 @@ export default () =>
     <Route path="/Trial_P_rating" exact component={Trial_P_rating} />
     <Route path="/OnceMore_rating" exact component={OnceMore_rating} />
     <Route path="/Continue_rating" exact component={Continue_rating} />
+    <Route path="/Trial_P_surprisal" exact component={Trial_P_surprisal} />
+    <Route path="/OnceMore_surprisal" exact component={OnceMore_surprisal} />
+    <Route path="/Continue_surprisal" exact component={Continue_surprisal} />
     <Route path="/TrialQ" exact component={TrialQ} />
     <Route path="/Complete" exact component={Complete} />
     <Route path="/Trial_TT_1" exact component={Trial_TT_1} />
