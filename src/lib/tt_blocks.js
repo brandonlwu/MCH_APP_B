@@ -34,19 +34,19 @@ export function create_blocks(c25, c50, c75) {
     ];
   } else {
     blocks = [
-      // First block has first 15 fixed at c75
-      _.concat(_.fill(Array(15), c75), _.shuffle(create_block(2, 1, 1, 11))),
-      create_block(8, 4, 4, 14),
-      create_block(11, 5, 6, 8),
-      create_block(12, 7, 6, 5),
-      create_block(13, 7, 6, 4),
-      create_block(14, 7, 6, 3),
-      create_block(14, 7, 7, 2),
-      create_block(14, 7, 7, 2),
-      create_block(14, 7, 7, 2),
-      create_block(14, 7, 7, 2),
-      create_block(14, 7, 7, 2),
-      create_block(14, 7, 7, 2)
+      // First block has first 8 fixed at c75
+      _.concat(_.fill(Array(5), c75), _.shuffle(create_block(1, 0, 1, 0))),
+      create_block(2, 1, 1, 3),
+      create_block(3, 1, 1, 2),
+      create_block(4, 1, 1, 1),
+      create_block(4, 2, 1, 0),
+      create_block(4, 1, 1, 1),
+      create_block(4, 1, 1, 1),
+      create_block(4, 1, 1, 1),
+      create_block(4, 1, 1, 1),
+      create_block(4, 1, 1, 1),
+      create_block(4, 1, 1, 1),
+      create_block(4, 1, 1, 1)
     ];
   }
 

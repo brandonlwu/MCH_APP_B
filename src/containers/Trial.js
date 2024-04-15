@@ -203,9 +203,10 @@ class Trial extends Component {
 
         // new code
         let GNote = new Audio(gNoteSound);
-        console.log("amp " + amp)
-        console.log("volume" + (0.2 + (amp-58)/50.0))
-        GNote.volume = 0.2 + (amp-58)/50.0;
+        console.log("dec " + amp)
+        let amptovol = 0.00000498574*Math.pow(1.18765, amp)
+        console.log("volume" + amptovol)
+        GNote.volume = amptovol;
         GNote.play();
 
         this.stimulusTimer = setTimeout(
@@ -237,7 +238,10 @@ class Trial extends Component {
 
         // new code
         let GNote = new Audio(gNoteSound);
-        GNote.volume = amp/400.0;
+        console.log("real dec " + amp)
+        let amptovol = 0.00000498574*Math.pow(1.18765, amp)
+        console.log("real volume" + amptovol)
+        GNote.volume = amptovol;
         GNote.play();
 
         this.stimulusTimer = setTimeout(

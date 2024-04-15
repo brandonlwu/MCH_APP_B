@@ -6,11 +6,15 @@ import Trial from './Trial';
 import {setComponentData} from '../store';
 import {create_blocks_singleton} from '../lib/tt_blocks';
 
+import TestClips from '../lib/TestStimAudio';
+
 var _ = require('lodash');
 
 const TRIAL_NUM = 3;
 const BLOCK_START = 6;
 const BLOCK_END = 9; // not inclusive
+
+const TestClips_TT_3 = TestClips.slice(42, 63)
 
 class Trial_TT_3 extends Component {
   constructor(props) {
@@ -50,6 +54,7 @@ class Trial_TT_3 extends Component {
 
     return (
       <Trial
+        audioSource={TestClips_TT_3}
         decibels={this.state.decibels}
         shouldRecordRatings={true}
         trialCompleteRenderer={this.trialCompleteRenderer}

@@ -82,7 +82,6 @@ import TestClip81 from "../media/audioclips/81 (83).wav"
 import TestClip82 from "../media/audioclips/82 (39).wav"
 import TestClip83 from "../media/audioclips/83 (44).wav"
 import TestClip84 from "../media/audioclips/84 (45).wav"
-import TestClip85 from "../media/audioclips/85 (89).wav"
 
 
 
@@ -95,7 +94,7 @@ const audioCodes = [
     87, 78, 28, 18, 70, 1, 54, 72, 85, 32, 
     65, 40, 60, 4, 75, 24, 63, 16, 5, 91, 
     55, 86, 47, 43, 56, 62, 84, 14, 46, 23, 
-    22, 83, 39, 44, 45, 89]
+    22, 83, 39, 44, 45]
 
 const TestClips = [ TestClip1, TestClip2, TestClip3, TestClip4, TestClip5, TestClip6, TestClip7, TestClip8, TestClip9,
 TestClip10, TestClip11, TestClip12, TestClip13, TestClip14, TestClip15, TestClip16, TestClip17, TestClip18, TestClip19, 
@@ -105,6 +104,6 @@ TestClip40, TestClip41, TestClip42, TestClip43, TestClip44, TestClip45, TestClip
 TestClip50, TestClip51, TestClip52, TestClip53, TestClip54, TestClip55, TestClip56, TestClip57, TestClip58, TestClip59,
 TestClip60, TestClip61, TestClip62, TestClip63, TestClip64, TestClip65, TestClip66, TestClip67, TestClip68, TestClip69,
 TestClip70, TestClip71, TestClip72, TestClip73, TestClip74, TestClip75, TestClip76, TestClip77, TestClip78, TestClip79,
-TestClip80, TestClip81, TestClip82, TestClip83, TestClip84, TestClip85
+TestClip80, TestClip81, TestClip82, TestClip83, TestClip84
 ]
 export default TestClips;
