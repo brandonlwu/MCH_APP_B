@@ -57,6 +57,7 @@ class Trial_TT_3 extends Component {
         audioSource={TestClips_TT_3}
         decibels={this.state.decibels}
         shouldRecordRatings={true}
+        shouldRecordSurprisals={true}
         trialCompleteRenderer={this.trialCompleteRenderer}
         dataHandler={this.dataHandler}
       />
