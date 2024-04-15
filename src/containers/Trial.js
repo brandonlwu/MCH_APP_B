@@ -237,7 +237,7 @@ class Trial extends Component {
 
         // new code
         let GNote = new Audio(gNoteSound);
-        GNote.volume = amp/800.0;
+        GNote.volume = amp/400.0;
         GNote.play();
 
         this.stimulusTimer = setTimeout(
