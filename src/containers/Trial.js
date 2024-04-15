@@ -204,8 +204,8 @@ class Trial extends Component {
         // new code
         let GNote = new Audio(gNoteSound);
         console.log("amp " + amp)
-        console.log("volume" + (0.061 + (amp-58)/100.0))
-        GNote.volume = 0.061 + (amp-58)/100.0;
+        console.log("volume" + (0.2 + (amp-58)/50.0))
+        GNote.volume = 0.2 + (amp-58)/50.0;
         GNote.play();
 
         this.stimulusTimer = setTimeout(
@@ -219,7 +219,7 @@ class Trial extends Component {
     } else {
 
       let melody = new Audio(that.props.audioSource[that.state.index]);
-      melody.volume = 0.2;
+      melody.volume = 0.3;
       melody.play();
 
       
@@ -237,7 +237,7 @@ class Trial extends Component {
 
         // new code
         let GNote = new Audio(gNoteSound);
-        GNote.volume = amp/1000.0;
+        GNote.volume = amp/800.0;
         GNote.play();
 
         this.stimulusTimer = setTimeout(
