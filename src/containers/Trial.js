@@ -437,6 +437,7 @@ class Trial extends Component {
              that.finishedTimer = setTimeout(() => {checkReady(); console.log("not ready")}, 100); /* this checks the flag every 100 milliseconds*/
           } else {
             console.log("STARTING")
+            that.surprisalStartTime = new Date().getTime();
             scheduleSurprisal();
           }
         }
@@ -536,6 +537,7 @@ class Trial extends Component {
           console.log('confidence is finished and key has been clicked')
           this.setState({ stopIncrementingSurprisal: false });
           this.setState({ surprisalReady: true });
+          this.surprisalStartTime = new Date().getTime();
         } else {
           console.log('confidence is not finished and key has been clicked')
           this.setState({ stopIncrementingRating: false });
@@ -569,6 +571,14 @@ class Trial extends Component {
         console.log('stop incrementing surprisal ')
         console.log('second up')
         this.setState({ stopIncrementingSurprisal: true });
+        const responseKeyCode =
+            _.last(this.response) == 1 ? Q_KEY_CODE : E_KEY_CODE;
+          if (responseKeyCode == event.keyCode) {
+            this.addTimestamp("surprisal");
+            var ms = new Date().getTime();
+            this.surprisalsRaw.push(ms - this.surprisalStartTime);
+            console.log('surprisalsraw' + this.surprisalsRaw)
+        }
       }
       if (this.state.surprisalWindow) {
         if (this.timebox) {

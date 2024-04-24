@@ -34,7 +34,7 @@ class Trial_TT_2 extends Component {
     return <Redirect to="/Break2" />
   }
 
-  dataHandler = (decibels, response, responseTime, ratings, ratingsRaw, timestamps) => {
+  dataHandler = (decibels, response, responseTime, ratings, ratingsRaw, surprisals, surprisalsRaw, timestamps) => {
     setComponentData(
       TRIAL_NUM,
       decibels,
@@ -42,6 +42,8 @@ class Trial_TT_2 extends Component {
       responseTime,
       ratings,
       ratingsRaw,
+      surprisals, 
+      surprisalsRaw,
       timestamps,
       this.startTimestamp
     );

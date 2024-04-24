@@ -43,7 +43,7 @@ class Trial_TT_1 extends Component {
     }
   }
 
-  dataHandler = (decibels, response, responseTime, ratings, ratingsRaw, timestamps) => {
+  dataHandler = (decibels, response, responseTime, ratings, ratingsRaw, surprisals, surprisalsRaw, timestamps) => {
     setComponentData(
       TRIAL_NUM,
       decibels,
@@ -51,6 +51,8 @@ class Trial_TT_1 extends Component {
       responseTime,
       ratings,
       ratingsRaw,
+      surprisals, 
+      surprisalsRaw,
       timestamps,
       this.startTimestamp
     );
