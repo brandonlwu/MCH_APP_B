@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from "../media/psych_logo.jpg"
 import './Welcome.css';
 import {Redirect} from "react-router-dom";
-import {setEncryptedMetadata, getEncryptedMetadata, getDataSent, setSurveyUrl} from '../store';
+import {setEncryptedMetadata, getEncryptedMetadata, getDataSent, setSurveyUrl, download} from '../store';
 
 var qs = require('query-string');
 var _ = require('lodash');
@@ -28,7 +28,6 @@ class Welcome extends Component {
 
   componentDidMount(){
     document.addEventListener("keydown", this.keyFunction, false);
-
     // Check if we're given an encrypted id
     const params = qs.parse(
       this.props.location.search,

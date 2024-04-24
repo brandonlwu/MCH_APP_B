@@ -11,6 +11,7 @@ import {
   setDataSent,
   getDataSent,
   getSurveyUrl,
+  download
 } from '../store';
 import {isLocalhost} from "../lib/utils";
 import {aws_saveTaskData, aws_fetchLink} from "../lib/aws_lambda";
@@ -84,6 +85,7 @@ class ThankYou extends Component {
       // If localhost, just mark data as sent
       setDataSent(true);
       this.setState({sentData: true});
+      download();
       clearTaskData();
       return;
     }
@@ -99,6 +101,7 @@ class ThankYou extends Component {
         // However, we do keep the id and dataSent so that
         // the user knows the data is sent even if the link is
         // reaccessed.
+        download();
         clearTaskData();
       }
     );
