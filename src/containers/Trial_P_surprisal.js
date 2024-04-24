@@ -28,14 +28,16 @@ class Trial_P_Surprisal extends Component {
     }
   }
 
-  dataHandler = (decibels, response, responseTime, ratings, ratingsRaw, timestamps) => {
+  dataHandler = (decibels, response, responseTime, ratings, ratingsRaw, surprisals,  surprisalsRaw, timestamps) => {
     setComponentData(
-      "practice_rating",
+      "practice_surprisal",
       decibels,
       response,
       responseTime,
       ratings,
       ratingsRaw,
+      surprisals,
+      surprisalsRaw,
       timestamps,
       this.startTimestamp
     );
