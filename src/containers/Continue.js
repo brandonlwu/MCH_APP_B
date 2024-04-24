@@ -43,8 +43,8 @@ class Continue extends Component {
                 <br /><br /> You will see a rating screen following each diagonal red stripes, press
                 <br /><br /> and then hold the <b> "Q"/YES </b> button or <b> "E"/NO </b> button.
                 <br /><br /> The longer you hold it down, the more certain you are of your choice.
-                <br /><br /> If you hold <b> "Q"/YES </b>  button down for a long time, you are very certain that you  <b> DO </b> hear the tone.
-                <br /><br /> If you hold <b> "E"/NO </b>  button down for a long time, you are very certain that you <b> DO NOT </b> hear the tone.
+                <br /><br /> If you hold <b> "Q"/YES </b>  button down for a long time, you are very certain that you  <b> DO </b> hear the final note of the melody.
+                <br /><br /> If you hold <b> "E"/NO </b>  button down for a long time, you are very certain that you <b> DO NOT </b> hear the final note of the melody.
                 <br /><br /> Please respond as <b> QUICKLY </b> and as <b> ACCURATELY </b> as you <b> POSSIBLY CAN </b>
                 <br /><br /><br /> PRESS "Q"/YES WHEN READY TO CONTINUE.
               </p>
