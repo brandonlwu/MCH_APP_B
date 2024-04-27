@@ -277,22 +277,6 @@ export function clearTaskData() {
 }
 
 
-export function downloadTaskData() {
-  Object.assign(document.createElement("a"), {
-    href: `data:application/JSON, ${encodeURIComponent(
-      JSON.stringify(
-        Object.keys(localStorage).reduce(
-          (obj, k) => ({ ...obj, [k]: JSON.parse(localStorage.getItem(k)) }),
-          {}
-        ),
-        null,
-        2
-      )
-    )}`,
-    download: "MCH_task_data",
-  }).click()
-}
-
 
 export function download() {
   const element = document.createElement("a");

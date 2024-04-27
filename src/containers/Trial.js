@@ -98,13 +98,16 @@ class Trial extends Component {
       // confidence vs surprisal state
       confidenceFinished: false,
       surprisalReady: false,
+
+      //key dead zone
+      keyInput: false,
     };
 
     // class props init
     this.canvasRef = React.createRef();
     this.audioContext = new AudioContext();
     this.initialDelay = 2000; // time until first stimulus, in ms
-    this.delay = 2500; // time in between stimuli, in ms
+    this.delay = 5000; // time in between stimuli, in ms
     this.numAttempts = 0;
     this.numAttemptsLimit = 1000;
 
@@ -196,6 +199,8 @@ class Trial extends Component {
     if (that.props.audioSource.length == 0) {
       setTimeout(() => {
         // Play stimuli
+        that.setState({keyInput: true}); 
+        console.log('key inputs true')
         that.playVisualStimulus(VISUAL_STIMULUS_MS);
 
         //// prev code
@@ -226,6 +231,8 @@ class Trial extends Component {
       
       setTimeout(() => {
         // Play stimuli
+        that.setState({keyInput: true}); 
+        console.log('key inputs true')
         that.playVisualStimulus(VISUAL_STIMULUS_MS);
 
 
@@ -421,8 +428,10 @@ class Trial extends Component {
 
               //reset variables
               that.setState({ surprisalReady: false,
-                confidenceFinished: false
+                confidenceFinished: false,
+                keyInput: false,
               });
+              console.log('key input back to false')
               return;
             }
             if (!that.state.stopIncrementingSurprisal) {
@@ -529,6 +538,11 @@ class Trial extends Component {
 
     if (this.prevKey !== event.keyCode) return;
 
+    if (this.state.keyInput == false) {
+      console.log('IGNORE IGNORE')
+      return;
+    };
+
     clearTimeout(this.timebox);
     this.timebox = setTimeout(() => {
       if (this.props.shouldRecordSurprisals) {
@@ -551,6 +565,11 @@ class Trial extends Component {
   };
 
   keyUpFunction = (event) => {
+    if (this.state.keyInput == false) {
+      console.log('IGNORE IGNORE up')
+      return;
+    };
+
     if (this.props.shouldRecordSurprisals) {
       if (_.includes([Q_KEY_CODE, E_KEY_CODE], event.keyCode)) {
         this.isKeyDown[event.keyCode] = false;
