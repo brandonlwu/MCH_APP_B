@@ -491,6 +491,10 @@ class Trial extends Component {
               that.prevKey = null;
 
               that.finishRatingWindow();
+              that.setState({
+                keyInput: false,
+              });
+              console.log('key inputs false')
               return;
             }
             if (!that.state.stopIncrementingRating) {
