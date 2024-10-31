@@ -225,7 +225,7 @@ class Trial extends Component {
     } else {
 
       let melody = new Audio(that.props.audioSource[that.state.index]);
-      melody.volume = 0.3;
+      melody.volume = 0.5;
       melody.play();
 
       setTimeout(() => {
@@ -256,7 +256,7 @@ class Trial extends Component {
           that.delay + that.jitter()
         );
         
-      }, 2432);
+      }, 2500);
 
       this.addTimestamp("stim");
     }
