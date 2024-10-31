@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import {Redirect} from "react-router-dom";
-import Trial from './Trial';
+import Trial2 from './Trial2';
 
 import {setComponentData} from '../store';
 import {create_blocks_singleton} from '../lib/tt_blocks';
@@ -56,7 +56,7 @@ class Trial_TT_2 extends Component {
     }
 
     return (
-      <Trial
+      <Trial2
         audioSource={TestClips_TT_2}
         decibels={this.state.decibels}
         shouldRecordRatings={true}

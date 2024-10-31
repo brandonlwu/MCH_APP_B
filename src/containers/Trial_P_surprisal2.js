@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import {setComponentData} from '../store.js';
 import {Redirect} from "react-router-dom";
-import Trial from './Trial.js';
+import Trial2 from './Trial2.js';
 import SurprisalClips from "../lib/PracticeSurprisalAudio.js";
 
 
@@ -45,7 +45,7 @@ class Trial_P_Surprisal extends Component {
 
   render() {
     return (
-      <Trial
+      <Trial2
         audioSource={SurprisalClips}
         shouldRecordRatings={true}
         shouldRecordSurprisals={true}

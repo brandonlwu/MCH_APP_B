@@ -17,7 +17,7 @@ import { getStore, getEncryptedMetadata, getDataSent } from "../store";
 
 // const mySound = require("../media/demoG.mp3");
 
-import gNoteSound from "../media/Gtone.wav";
+import gNoteSound from "../media/Gtone.mp3";
 
 
 import HearClips from "../lib/PracticeHearAudio.js";

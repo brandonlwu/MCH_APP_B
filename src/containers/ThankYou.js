@@ -90,9 +90,12 @@ class ThankYou extends Component {
       return;
     }
 
+    console.log(this.state.link);
+
     // Send request and mark data as sent
     aws_saveTaskData(encryptedMetadata, storeExport).then(
       () => {
+        console.log('We sent the data')
         setDataSent(true);
         this.setState({sentData: true});
 
