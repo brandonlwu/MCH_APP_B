@@ -46,6 +46,7 @@ class Continue extends Component {
                 <br /><br /> If you hold <b> "Q"/YES </b>  button down for a long time, you are very certain that you  <b> DO </b> hear the final note of the melody.
                 <br /><br /> If you hold <b> "E"/NO </b>  button down for a long time, you are very certain that you <b> DO NOT </b> hear the final note of the melody.
                 <br /><br /> Please respond as <b> QUICKLY </b> and as <b> ACCURATELY </b> as you <b> POSSIBLY CAN </b>
+                <br /><br /> Please remember to keep your eyes on the fixation cross throughout the task!
                 <br /><br /><br /> PRESS "Q"/YES WHEN READY TO CONTINUE.
               </p>
             </div>

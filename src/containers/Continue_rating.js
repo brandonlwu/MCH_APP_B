@@ -41,12 +41,15 @@ class Continue_rating extends Component {
             <p className="Continue_rating-text">
             Great!
             <br /><br /> Second task complete! You will do the same thing in the next task, with some important differences:
-            <br /><br /> After the certainty rating screen you will see another rating screen following each diagonal red stripes, press
-            <br /><br /> and then hold the same key from the previous rating screen.
-            <br /><br /> The longer you hold it down, the better the final note fit into the melody.
-            <br /><br /> If you hold the key down for a long time, the final note was a <b> GOOD FIT </b>.
-            <br /><br /> If you hold the key down for a short time, the final note was a <b> BAD FIT </b>.
+            <br /><br /> After the certainty rating screen you will see another rating screen. A note will be played, and your job is   
+            <br /><br /> to indicate whether the final note of the melody was higher or lower than the note that was just played.
+            <br /><br /> If you believe the final note of the melody was higher than the note that is played, press the UP key.
+            <br /><br /> If you believe the final note of the melody was lower than the note that is played, press the DOWN key.
+            <br /><br /> The longer you press the UP key, the higher the final note of the melody was compared to the note that was just played.
+            <br /><br /> The longer you press the DOWN key, the lower the final note of the melody was compared to the note that was just played.
+            <br /><br /> It can help to hum the final note of the melody that you heard while responding to the questions.
             <br /><br /> Please respond as <b> QUICKLY </b> and as <b> ACCURATELY </b> as you <b> POSSIBLY CAN </b>
+            <br /><br /> Please remember to keep your eyes on the fixation cross throughout the task!
             <br /><br /><br /> PRESS "Q"/YES WHEN READY TO CONTINUE.
             </p>
           </div>

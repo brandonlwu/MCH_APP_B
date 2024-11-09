@@ -42,9 +42,11 @@ class Break2 extends Component {
                 <br /><br /> The task will continue to be difficult, but it is okay to guess and it is okay to be uncertain.
                 <br /><br /> Press <b> "Q"/YES </b> if you <b> DO </b> hear a tone.
                 <br /><br /> Press <b> "E"/NO </b> if you <b> DO NOT </b> hear a tone.
-                <br /><br /> If you hold the key down for a long time, the final note was a <b> GOOD FIT </b>.
-                <br /><br /> If you hold the key down for a short time, the final note was a <b> BAD FIT </b>.
+                <br /><br /> The longer you hold it down, the more certain you are of your choice.
+                <br /><br /> The longer you press the UP key, the higher the final note of the melody was compared to the note that was just played.
+                <br /><br /> The longer you press the DOWN key, the lower the final note of the melody was compared to the note that was just played.
                 <br /><br /> Please respond as <b> QUICKLY </b> and as <b> ACCURATELY </b> as you <b> POSSIBLY CAN </b>
+                <br /><br /> Please remember to keep your eyes on the fixation cross throughout the task!
                 <br /><br /><br /> PRESS "Q"/YES TO CONTINUE WITH THE NEXT PART
 
               </p>

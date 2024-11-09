@@ -44,11 +44,12 @@ class Continue_surprisal extends Component {
               <br /><br />  The final note of the melodies in the remainder of the experiment
               <br /><br />  may be very difficult to hear so you will have to listen very hard.
               <br /><br />  Sometimes it might be difficult to answer, but if you do not know, please guess.
-              <br /><br />  For this first task, you will not be asked to rate your confidence or fit of the note so just quickly press
+              <br /><br />  For this first task, you will NOT be asked to rate your confidence or height of the note so just quickly press
               <br /><br />  and release the button as soon as the screen flashes with the diagonal red stripes.
               <br /><br /> Press  <font size="+2">  <b> "Q"/YES </b> </font> if you <b> DO </b>hear the note.
               <br /><br /> Press <font size="+2"> <b> "E"/NO </b> </font> if you <b> DO NOT </b> hear the note.
               <br /><br /> Please respond as <b> QUICKLY </b> and as <b> ACCURATELY </b> as you <b> POSSIBLY CAN </b>
+              <br /><br /> Please remember to keep your eyes on the fixation cross throughout the task!
               <br /><br /> There will be scheduled breaks throughout the experiment, but please do not take a break unless instructed.
               <br /><br /><br /> PRESS "Q"/YES TO BEGIN THE EXPERIMENT.
             </p>

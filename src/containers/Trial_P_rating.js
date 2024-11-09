@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {setComponentData} from '../store';
 import {Redirect} from "react-router-dom";
 import Trial from './Trial';
-import ConfidenceClips from "../lib/PracticeConfidenceAudio2.js";
+import ConfidenceClips from "../lib/PracticeConfidenceAudio.js";
 
 var _ = require('lodash');
 

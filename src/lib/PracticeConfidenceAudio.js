@@ -1,13 +1,13 @@
-import Confidence1 from "../media/practiceconfidence/Confidence1.wav"
-import Confidence2 from "../media/practiceconfidence/Confidence2.wav"
-import Confidence3 from "../media/practiceconfidence/Confidence3.wav"
-import Confidence4 from "../media/practiceconfidence/Confidence4.wav"
-import Confidence5 from "../media/practiceconfidence/Confidence5.wav"
-import Confidence6 from "../media/practiceconfidence/Confidence6.wav"
-import Confidence7 from "../media/practiceconfidence/Confidence7.wav"
-import Confidence8 from "../media/practiceconfidence/Confidence8.wav"
-import Confidence9 from "../media/practiceconfidence/Confidence9.wav"
-import Confidence10 from "../media/practiceconfidence/Confidence10.wav"
+import Confidence1 from "../media/practiceconfidence/C1.mp3"
+import Confidence2 from "../media/practiceconfidence/C2.mp3"
+import Confidence3 from "../media/practiceconfidence/C3.mp3"
+import Confidence4 from "../media/practiceconfidence/C4.mp3"
+import Confidence5 from "../media/practiceconfidence/C5.mp3"
+import Confidence6 from "../media/practiceconfidence/C6.mp3"
+import Confidence7 from "../media/practiceconfidence/C7.mp3"
+import Confidence8 from "../media/practiceconfidence/C8.mp3"
+import Confidence9 from "../media/practiceconfidence/C9.mp3"
+import Confidence10 from "../media/practiceconfidence/C10.mp3"
 
 
 

@@ -75,6 +75,8 @@ class ThankYou extends Component {
     // Send data, only if it is complete
     if (!isStoreComplete()) {
       // Store isn't complete so something went wrong. Clear the whole store.
+      console.log('Store is not complete')
+      console.log(encryptedMetadata)
       clearStore();
       this.setState({invalid: true});
       return;

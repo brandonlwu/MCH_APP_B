@@ -79,7 +79,7 @@ class Welcome extends Component {
           <p className="Welcome-text">
             <span className="bigger">Welcome to the study! </span>
             <br /><br /> In this task you will hear a series of 6 note melodies. 
-            <br /><br /> You will be asked to indicate whether you hear the final note of the melody being played. 
+            <br /><br /> You will be asked to indicate whether you hear the sixth note of the melody being played. 
             <br /><br />Please enter responses to the questions asked by pressing the:
             <br /><br />  <font size="+2"> <b> 'Q' key for 'YES I HEAR IT'</b> or <b> 'E' key for "NO I DO NOT"</b> </font>
             <br /><br /><br /><br /> Sometimes it may be difficult to answer, but if you do not know, please make your best guess.
