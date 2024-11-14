@@ -61,6 +61,8 @@ const SURPRISAL_KEY_CODES = _.map(_.keys(KEY_CODE_TO_SURPRISAL), (k) =>
 const VISUAL_STIMULUS_MS = 1000;
 const STIMULUS_MS = 1000;
 
+let melodies = [];
+
 class Trial extends Component {
   /********************************
    *                              *
@@ -203,9 +205,6 @@ class Trial extends Component {
         // Play stimuli
         that.playVisualStimulus(VISUAL_STIMULUS_MS);
 
-        //// prev code
-        // playAuditoryStimulus(auditoryStim, that.audioContext, STIMULUS_MS, amp);
-
         // new code
         let GNote = new Audio(gNoteSound);
         console.log("dec " + amp)
@@ -224,8 +223,9 @@ class Trial extends Component {
       this.addTimestamp("stim");
     } else {
 
-      let melody = new Audio(that.props.audioSource[that.state.index]);
-      melody.volume = 0.5;
+      // let melody = new Audio(that.props.audioSource[that.state.index]);
+      let melody = melodies[that.state.index]
+      melody.volume = 0.3;
       melody.play();
 
       setTimeout(() => {
@@ -256,7 +256,7 @@ class Trial extends Component {
           that.delay + that.jitter()
         );
         
-      }, 2500);
+      }, 2450);
 
       this.addTimestamp("stim");
     }
@@ -304,6 +304,10 @@ class Trial extends Component {
   componentDidMount() {
     document.addEventListener("keydown", this.keyDownFunction, false);
     document.addEventListener("keyup", this.keyUpFunction, false);
+
+    for (let i = 0; i < this.props.audioSource.length; i++) {
+      melodies.push(new Audio(this.props.audioSource[i]));
+    }
 
     // If we don't have an id on file, then abort
     if (_.isUndefined(getEncryptedMetadata())) {
@@ -582,6 +586,7 @@ class Trial extends Component {
       }
 
       if (!this.state.surprisalReady) {
+        console.log('here')
         this.setState({ stopIncrementingRating: true });
       } else {
         this.setState({ stopIncrementingSurprisal: true });

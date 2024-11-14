@@ -65,6 +65,8 @@ const SURPRISAL_KEY_CODES = _.map(_.keys(KEY_CODE_TO_SURPRISAL), (k) =>
 const VISUAL_STIMULUS_MS = 1000;
 const STIMULUS_MS = 1000;
 
+let melodies = [];
+
 class Trial extends Component {
   /********************************
    *                              *
@@ -83,7 +85,6 @@ class Trial extends Component {
       ratingWindow: false,
       surprisalWindow: false,
       trialStarted: false,
-      trialStartedUp: false,
       complete: false,
       invalid: false,
       readyToStart: false,
@@ -230,7 +231,7 @@ class Trial extends Component {
       this.addTimestamp("stim");
     } else {
 
-      let melody = new Audio(that.props.audioSource[that.state.index]);
+      let melody = melodies[that.state.index]
       melody.volume = 0.3;
       melody.play();
 
@@ -262,7 +263,7 @@ class Trial extends Component {
           that.delay + that.jitter()
         );
         
-      }, 2432);
+      }, 2450);
 
       this.addTimestamp("stim");
     }
@@ -310,6 +311,12 @@ class Trial extends Component {
   componentDidMount() {
     document.addEventListener("keydown", this.keyDownFunction, false);
     document.addEventListener("keyup", this.keyUpFunction, false);
+
+
+    melodies = [];
+    for (let i = 0; i < this.props.audioSource.length; i++) {
+      melodies.push(new Audio(this.props.audioSource[i]));
+    }
 
     // If we don't have an id on file, then abort
     if (_.isUndefined(getEncryptedMetadata())) {
@@ -593,16 +600,9 @@ class Trial extends Component {
         this.isKeyDown[event.keyCode] = false;
       }
 
-      if (!this.trialStartedUp) {
-        console.log('Trial hasnt started')
-        this.trialStartedUp = true;
-        this.setState({ confidenceFinished: false });
-        this.setState({ surprisalReady: false });
-        return;
-      }
-
       if (!this.state.surprisalReady) {
         this.setState({ stopIncrementingRating: true });
+        console.log('stop changing rating')
 
         // transition screen and sound
         this.setState({ transitionReady: true });
@@ -672,6 +672,7 @@ class Trial extends Component {
 
   finishRatingWindow = () => {
     this.ratings.push(this.state.currentRating);
+    console.log('rating' +this.state.currentRating)
 
     if (this.ratings.length > this.ratingsRaw.length) {
       this.addTimestamp("rating");
@@ -696,7 +697,7 @@ class Trial extends Component {
 
   finishSurprisalWindow = () => {
     this.surprisals.push(this.state.currentSurprisal);
-
+    console.log('surprisal' +this.state.currentSurprisal)
     if (this.surprisals.length > this.surprisalsRaw.length) {
       this.addTimestamp("surprisal");
 
