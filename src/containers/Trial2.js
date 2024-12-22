@@ -51,6 +51,8 @@ const KEY_CODE_TO_SURPRISAL = {
   51: 3,
   52: 4,
   53: 5,
+  54: 6,
+  55: 7,
 };
 
 // We want key codes in number form, hence the parseInt
@@ -96,7 +98,7 @@ class Trial extends Component {
       stopShowingRating: false,
 
       // surprisals related state
-      currentSurprisal: 3,
+      currentSurprisal: 4,
       stopIncrementingSurprisal: false,
       stopShowingSurprisal: false,
       incrementOrDecrement: 1, // 1 is increment, 0 is decrement
@@ -420,7 +422,7 @@ class Trial extends Component {
           ratingWindow: true,
           surprisalWindow: true,
           currentRating: that.numIterations || 1,
-          currentSurprisal: that.numIterations || 3,
+          currentSurprisal: that.numIterations || 4,
           stopShowingRating: false,
           stopIncrementingRating: false,
           confidenceFinished: false,
@@ -434,7 +436,7 @@ class Trial extends Component {
         function scheduleSurprisal() {
           that.numIterations++;
           that.surprisalTimer = setTimeout(() => {
-            if (that.numIterations == 3 || that.state.stopShowingSurprisal) {
+            if (that.numIterations == 4 || that.state.stopShowingSurprisal) {
               that.numIterations = 0;
               that.prevKey = null;
 
@@ -550,7 +552,8 @@ class Trial extends Component {
 
     // First, check whether key is pressed for the first time or key is being
     // held down. If it's being held down we ignore it.
-    if (_.includes([Q_KEY_CODE, E_KEY_CODE], event.keyCode)) {
+
+    if (_.includes([Q_KEY_CODE, E_KEY_CODE, UP_KEY_CODE, DOWN_KEY_CODE], event.keyCode)) {
       if (this.isKeyDown[event.keyCode]) {
         return;
       } else {
@@ -569,6 +572,10 @@ class Trial extends Component {
     this.timebox = setTimeout(() => {
       if (this.props.shouldRecordSurprisals) {
         if (this.state.confidenceFinished) {
+          if (!_.includes([UP_KEY_CODE, DOWN_KEY_CODE], event.keyCode)) {
+            console.log("ignoring all keys not up or down in surprisals stage");
+            return;
+          }
           if (event.keyCode == UP_KEY_CODE) {
             this.setState({ incrementOrDecrement: 1 });
           } else if (event.keyCode == DOWN_KEY_CODE) {
@@ -579,6 +586,10 @@ class Trial extends Component {
           this.setState({ surprisalReady: true });
           this.surprisalStartTime = new Date().getTime();
         } else {
+          if (!_.includes([Q_KEY_CODE, E_KEY_CODE], event.keyCode)) {
+            console.log("ignoring all keys not q or e in rating stage");
+            return;
+          }
           this.setState({ stopIncrementingRating: false });
           this.recordResponse(event);
         }
@@ -596,30 +607,44 @@ class Trial extends Component {
     };
 
     if (this.props.shouldRecordSurprisals) {
-      if (_.includes([Q_KEY_CODE, E_KEY_CODE], event.keyCode)) {
+      if (!this.state.confidenceFinished) {
+        if (!_.includes([Q_KEY_CODE, E_KEY_CODE], event.keyCode)) {
+          console.log('ignore ups from non q e in confidence');
+          return;
+        }
+      }
+      if (_.includes([Q_KEY_CODE, E_KEY_CODE, UP_KEY_CODE, DOWN_KEY_CODE], event.keyCode)) {
         this.isKeyDown[event.keyCode] = false;
       }
 
       if (!this.state.surprisalReady) {
+        if (!_.includes([Q_KEY_CODE, E_KEY_CODE, UP_KEY_CODE, DOWN_KEY_CODE], event.keyCode)) {
+          console.log("we are not changing")
+          return;
+        }
         this.setState({ stopIncrementingRating: true });
         console.log('stop changing rating')
 
         // transition screen and sound
-        this.setState({ transitionReady: true });
         const amp = this.props.decibels[this.state.index];
+
         setTimeout(() => {
-          let GNote = new Audio(gNoteSound);
-          // console.log("dec " + amp)
-          // let amptovol = 0.00000498574*Math.pow(1.18765, amp)
-          // console.log("volume" + amptovol)
-          GNote.volume = 0.2;
-          GNote.play();
-        }, 1000);
+        this.setState({ transitionReady: true });
+        }, 800);
+
+        if (!this.state.transitionReady) {
+          setTimeout(() => {
+            let GNote = new Audio(gNoteSound);
+
+            GNote.volume = 0.2;
+            GNote.play();
+          }, 1000);
+        }
       } else {
         console.log('stop changing surprisal')
         this.setState({ stopIncrementingSurprisal: true });
         const responseKeyCode =
-            _.last(this.response) == 1 ? Q_KEY_CODE : E_KEY_CODE;
+            _.last(this.response) == 1 ? UP_KEY_CODE : DOWN_KEY_CODE;
           if (responseKeyCode == event.keyCode) {
             this.addTimestamp("surprisal");
             var ms = new Date().getTime();

@@ -10,6 +10,8 @@ import SURPRISAL_2_SRC from "../media/white_keydown_2.png";
 import SURPRISAL_3_SRC from "../media/white_keydown_3.png";
 import SURPRISAL_4_SRC from "../media/white_keydown_4.png";
 import SURPRISAL_5_SRC from "../media/white_keydown_5.png";
+import SURPRISAL_6_SRC from "../media/white_keydown_6.png";
+import SURPRISAL_7_SRC from "../media/white_keydown_7.png";
 import './Trial.css';
 
 var _ = require('lodash');
@@ -34,6 +36,8 @@ const surprisalToImgSrc = {
   3: SURPRISAL_3_SRC,
   4: SURPRISAL_4_SRC,
   5: SURPRISAL_5_SRC,
+  6: SURPRISAL_6_SRC,
+  7: SURPRISAL_7_SRC
 }
 
 class VisualStimulus extends Component {
@@ -110,8 +114,8 @@ class VisualStimulus extends Component {
         style={
           {
             zIndex: 101,
-            width: '60vh',
-            height: '50vh',
+            width: '79vh',
+            height: '70vh',
             backgroundColor: "black",
             visibility: this.props.showSurprisals ? 'visible' : 'hidden',
           }
@@ -132,13 +136,13 @@ class VisualStimulus extends Component {
         ></div></>
         :<></>}
 
-        {this.props.transitionReady ? <>
-        <img src={SURPRISAL_3_SRC} width={CANVAS_LENGTH} height={CANVAS_LENGTH} className="center"
+        {(this.props.transitionReady)? <>
+        <img src={SURPRISAL_4_SRC} width={CANVAS_LENGTH} height={CANVAS_LENGTH} className="center"
         style={
           {
             zIndex: 101,
-            width: '60vh',
-            height: '50vh',
+            width: '79vh',
+            height: '70vh',
             backgroundColor: "black",
             visibility: this.props.showSurprisals ? 'visible' : 'hidden',
           }
@@ -159,7 +163,7 @@ class VisualStimulus extends Component {
         ></div></>
         :<></>}
         
-        {this.props.surprisalReady ? <></>:
+        {this.props.transitionReady ? <></>:
         <>
         <img src={ratingToImgSrc[this.props.currentRating]} width={CANVAS_LENGTH} height={CANVAS_LENGTH} className="center"
         style={
