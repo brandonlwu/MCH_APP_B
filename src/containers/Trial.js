@@ -309,9 +309,12 @@ class Trial extends Component {
     document.addEventListener("keydown", this.keyDownFunction, false);
     document.addEventListener("keyup", this.keyUpFunction, false);
 
+
+    melodies = [];
     for (let i = 0; i < this.props.audioSource.length; i++) {
       melodies.push(new Audio(this.props.audioSource[i]));
     }
+    console.log(melodies)
 
     // If we don't have an id on file, then abort
     if (_.isUndefined(getEncryptedMetadata())) {
