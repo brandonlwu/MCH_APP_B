@@ -122,7 +122,9 @@ class Trial extends Component {
 
     // user inputs
     this.response = [];
+    this.responseSurprisal = [];
     this.responseTime = [];
+    this.responseSurprisalTime = [];
     this.ratings = [];
     this.ratingsRaw = [];
     this.surprisals = [];
@@ -297,7 +299,9 @@ class Trial extends Component {
     this.props.dataHandler(
       this.props.decibels,
       this.response,
+      this.responseSurprisal,
       this.responseTime,
+      this.responseSurprisalTime,
       this.ratings,
       this.ratingsRaw,
       this.surprisals,
@@ -407,7 +411,6 @@ class Trial extends Component {
 
       // Record 1 as response if Q, record 0 if E
       let response = event.keyCode === Q_KEY_CODE ? 1 : 0;
-
       this.response.push(response);
       this.responseTime.push(ms - this.startTime);
       this.setState({ responseWindow: false });
@@ -514,7 +517,6 @@ class Trial extends Component {
             if (that.numIterations == 5 || that.state.stopShowingRating) {
               that.numIterations = 0;
               that.prevKey = null;
-
               that.finishRatingWindow();
               that.setState({
                 keyInput: false,
@@ -595,15 +597,15 @@ class Trial extends Component {
           } else if (event.keyCode == DOWN_KEY_CODE) {
             this.setState({ incrementOrDecrement: 0 });
           }
-          
+
           this.addTimestamp("resp");
           var ms = new Date().getTime();
-          let response;
+          let responseSurprisal;
           if (_.includes([UP_KEY_CODE, DOWN_KEY_CODE], event.keyCode)) {
-            response = event.keyCode === UP_KEY_CODE ? 1 : 0;
+            responseSurprisal = event.keyCode === UP_KEY_CODE ? 1 : 0;
           }
-          this.response.push(response);
-          this.responseTime.push(ms - this.startTime);
+          this.responseSurprisal.push(responseSurprisal);
+          this.responseSurprisalTime.push(ms - this.startTime);
 
 
           this.setState({ transitionReady: false });
@@ -784,6 +786,8 @@ class Trial extends Component {
     console.log("all decibels: " + this.props.decibels);
     console.log("all responses: " + this.response);
     console.log("all responseTime: " + this.responseTime);
+    console.log("all surprisal responses: " + this.responseSurprisal);
+    console.log("all surprisal response time: " + this.responseSurprisalTime);
     console.log("all timestamps: " + JSON.stringify(this.timestamps));
     console.log("all ratingsRaw: " + this.ratingsRaw);
     console.log("all ratings: " + this.ratings);

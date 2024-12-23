@@ -115,7 +115,9 @@ class Trial extends Component {
 
     // user inputs
     this.response = [];
+    this.responseSurprisal = [];
     this.responseTime = [];
+    this.responseSurprisalTime = [];
     this.ratings = [];
     this.ratingsRaw = [];
     this.surprisals = [];
@@ -286,7 +288,9 @@ class Trial extends Component {
     this.props.dataHandler(
       this.props.decibels,
       this.response,
+      this.responseSurprisal,
       this.responseTime,
+      this.responseSurprisal,
       this.ratings,
       this.ratingsRaw,
       this.surprisals,

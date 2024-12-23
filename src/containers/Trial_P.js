@@ -28,14 +28,19 @@ class Trial_P extends Component {
     }
   }
 
-  dataHandler = (decibels, response, responseTime, ratings, ratingsRaw, timestamps) => {
+  dataHandler = (  decibels, response, responseSurprisal, responseTime, responseSurprisalTime, ratings, ratingsRaw, surprisals,  surprisalsRaw, timestamps
+  ) => {
     setComponentData(
       "practice",
       decibels,
       response,
+      undefined, //no response surprisal
       responseTime,
+      undefined, // no responsesurprislatime
       undefined, // no ratings
       undefined, // no ratings
+      undefined, // no surprisals
+      undefined, // no surprisalsRaw
       timestamps,
       this.startTimestamp
     );

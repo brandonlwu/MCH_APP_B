@@ -21,7 +21,9 @@ export const COMPONENT_KEY_PREFIX = 'component_';
 
 export const DECIBELS_KEY = 'decibels';
 export const RESPONSE_KEY = 'response';
+export const RESPONSE_SURPRISAL_KEY = 'responseSurprisal';
 export const RESPONSE_TIME_KEY = 'responseTime';
+export const RESPONSE_SURPRISAL_TIME_KEY = 'responseSurprisalTime';
 export const RATINGS_KEY = 'ratings';
 export const RATINGS_RAW_KEY = 'ratingsRaw';
 export const SURPRISALS_KEY = 'surprisals';
@@ -103,14 +105,24 @@ function getComponentKey(componentNum) {
   return COMPONENT_KEY_PREFIX + componentNum;
 }
 
-export function setComponentData(componentNum, decibels, response, responseTime, ratings, ratingsRaw, surprisals, surprisalsRaw, timestamps, startTimestamp) {
+export function setComponentData(componentNum, decibels, response, responseSurprisal, responseTime, responseSurprisalTime, ratings, ratingsRaw, surprisals, surprisalsRaw, timestamps, startTimestamp) {
   const store = LocalStorageBackedStore.store;
   const key = getComponentKey(componentNum);
 
   store[key] = {};
   store[key][DECIBELS_KEY] = decibels;
   store[key][RESPONSE_KEY] = response;
+
+  if (!_.isUndefined(responseSurprisal)) {
+    store[key][RESPONSE_SURPRISAL_KEY] = responseSurprisal;
+  }
+
   store[key][RESPONSE_TIME_KEY] = responseTime;
+
+  if (!_.isUndefined(responseSurprisalTime)) {
+    store[key][RESPONSE_SURPRISAL_TIME_KEY] = responseSurprisalTime;
+  }
+
   if (!_.isUndefined(ratings)) {
     store[key][RATINGS_KEY] = ratings;
   }
@@ -282,7 +294,7 @@ export function download() {
   const element = document.createElement("a");
   const textFile = new Blob([JSON.stringify(localStorage)], {type: 'text/plain'}); //pass data from localStorage API to blob
   element.href = URL.createObjectURL(textFile);
-  element.download = "MCH_tast_data.txt";
+  element.download = "MCH_test_data.txt";
   document.body.appendChild(element); 
   element.click();
 }

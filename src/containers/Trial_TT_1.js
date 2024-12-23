@@ -43,12 +43,14 @@ class Trial_TT_1 extends Component {
     }
   }
 
-  dataHandler = (decibels, response, responseTime, ratings, ratingsRaw, surprisals, surprisalsRaw, timestamps) => {
+  dataHandler = (decibels, response, responseSurprisal, responseTime, responseSurprisalTime, ratings, ratingsRaw, surprisals, surprisalsRaw, timestamps) => {
     setComponentData(
       TRIAL_NUM,
       decibels,
       response,
+      responseSurprisal,
       responseTime,
+      responseSurprisalTime,
       ratings,
       ratingsRaw,
       surprisals, 

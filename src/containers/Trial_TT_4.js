@@ -33,12 +33,14 @@ class Trial_TT_4 extends Component {
     return <Redirect to="/ThankYou" />
   }
 
-  dataHandler = (decibels, response, responseTime, ratings, ratingsRaw, surprisals, surprisalsRaw, timestamps) => {
+  dataHandler = (decibels, response, responseSurprisal, responseTime, responseSurprisalTime, ratings, ratingsRaw, surprisals, surprisalsRaw, timestamps) => {
     setComponentData(
       TRIAL_NUM,
       decibels,
       response,
+      responseSurprisal,
       responseTime,
+      responseSurprisalTime,
       ratings,
       ratingsRaw,
       surprisals, 
