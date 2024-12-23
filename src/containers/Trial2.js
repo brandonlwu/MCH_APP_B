@@ -396,7 +396,7 @@ class Trial extends Component {
   recordResponse = (event) => {
     if (
       this.state.responseWindow &&
-      _.includes([Q_KEY_CODE, E_KEY_CODE, UP_KEY_CODE, DOWN_KEY_CODE], event.keyCode)
+      _.includes([Q_KEY_CODE, E_KEY_CODE], event.keyCode)
     ) {
       var that = this;
 
@@ -406,10 +406,8 @@ class Trial extends Component {
       var ms = new Date().getTime();
 
       // Record 1 as response if Q, record 0 if E
-      const response = event.keyCode === Q_KEY_CODE ? 1 : 0;
-      if (_.includes([UP_KEY_CODE, DOWN_KEY_CODE], event.keyCode)) {
-        response = event.keyCode === UP_KEY_CODE ? 1 : 0;
-      }
+      let response = event.keyCode === Q_KEY_CODE ? 1 : 0;
+
       this.response.push(response);
       this.responseTime.push(ms - this.startTime);
       this.setState({ responseWindow: false });
@@ -597,6 +595,17 @@ class Trial extends Component {
           } else if (event.keyCode == DOWN_KEY_CODE) {
             this.setState({ incrementOrDecrement: 0 });
           }
+          
+          this.addTimestamp("resp");
+          var ms = new Date().getTime();
+          let response;
+          if (_.includes([UP_KEY_CODE, DOWN_KEY_CODE], event.keyCode)) {
+            response = event.keyCode === UP_KEY_CODE ? 1 : 0;
+          }
+          this.response.push(response);
+          this.responseTime.push(ms - this.startTime);
+
+
           this.setState({ transitionReady: false });
           this.setState({ surprisalReady: true });
           this.surprisalStartTime = new Date().getTime();
