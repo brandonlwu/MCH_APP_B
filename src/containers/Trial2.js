@@ -147,6 +147,8 @@ class Trial extends Component {
     this.isKeyDown = {
       Q_KEY_CODE: false,
       E_KEY_CODE: false,
+      UP_KEY_CODE: false,
+      DOWN_KEY_CODE: false,
     };
     this.prevKey = null;
   }
@@ -394,7 +396,7 @@ class Trial extends Component {
   recordResponse = (event) => {
     if (
       this.state.responseWindow &&
-      _.includes([Q_KEY_CODE, E_KEY_CODE], event.keyCode)
+      _.includes([Q_KEY_CODE, E_KEY_CODE, UP_KEY_CODE, DOWN_KEY_CODE], event.keyCode)
     ) {
       var that = this;
 
@@ -405,6 +407,9 @@ class Trial extends Component {
 
       // Record 1 as response if Q, record 0 if E
       const response = event.keyCode === Q_KEY_CODE ? 1 : 0;
+      if (_.includes([UP_KEY_CODE, DOWN_KEY_CODE], event.keyCode)) {
+        response = event.keyCode === UP_KEY_CODE ? 1 : 0;
+      }
       this.response.push(response);
       this.responseTime.push(ms - this.startTime);
       this.setState({ responseWindow: false });
@@ -550,11 +555,20 @@ class Trial extends Component {
       return;
     };
 
+
+    if (this.state.transitionReady) {
+      if (!_.includes([UP_KEY_CODE, DOWN_KEY_CODE], event.keyCode)) {
+        console.log("not registering press)")
+        return;
+      }
+    }
+
     // First, check whether key is pressed for the first time or key is being
     // held down. If it's being held down we ignore it.
 
     if (_.includes([Q_KEY_CODE, E_KEY_CODE, UP_KEY_CODE, DOWN_KEY_CODE], event.keyCode)) {
       if (this.isKeyDown[event.keyCode]) {
+        console.log("iskeydown end")
         return;
       } else {
         this.isKeyDown[event.keyCode] = true;
@@ -565,8 +579,10 @@ class Trial extends Component {
       this.prevKey = event.keyCode;
     }
 
-    if (this.prevKey !== event.keyCode) return;
-
+    if (this.prevKey !== event.keyCode)  {
+      console.log('prevkey not same as event keycode')
+      return;
+    }
 
     clearTimeout(this.timebox);
     this.timebox = setTimeout(() => {
@@ -582,7 +598,6 @@ class Trial extends Component {
             this.setState({ incrementOrDecrement: 0 });
           }
           this.setState({ transitionReady: false });
-          // this.setState({ stopIncrementingSurprisal: false });
           this.setState({ surprisalReady: true });
           this.surprisalStartTime = new Date().getTime();
         } else {
@@ -610,18 +625,28 @@ class Trial extends Component {
       if (!this.state.confidenceFinished) {
         if (!_.includes([Q_KEY_CODE, E_KEY_CODE], event.keyCode)) {
           console.log('ignore ups from non q e in confidence');
+          this.prevKey = null;
           return;
         }
       }
+
+      if (this.state.transitionReady) {
+        if (!_.includes([UP_KEY_CODE, DOWN_KEY_CODE], event.keyCode)) {
+          console.log("we are not registering (updown))")
+          this.prevKey = null;
+          return;
+        }
+      }
+
       if (_.includes([Q_KEY_CODE, E_KEY_CODE, UP_KEY_CODE, DOWN_KEY_CODE], event.keyCode)) {
         this.isKeyDown[event.keyCode] = false;
       }
 
       if (!this.state.surprisalReady) {
-        if (!_.includes([Q_KEY_CODE, E_KEY_CODE, UP_KEY_CODE, DOWN_KEY_CODE], event.keyCode)) {
-          console.log("we are not changing")
-          return;
-        }
+          if (!_.includes([Q_KEY_CODE, E_KEY_CODE], event.keyCode)) {
+            console.log("we are not changing")
+            return;
+          }
         this.setState({ stopIncrementingRating: true });
         console.log('stop changing rating')
 
@@ -641,6 +666,10 @@ class Trial extends Component {
           }, 1000);
         }
       } else {
+        if (!_.includes([UP_KEY_CODE, DOWN_KEY_CODE], event.keyCode)) {
+          console.log("we are not changing (updown)")
+          return;
+        }
         console.log('stop changing surprisal')
         this.setState({ stopIncrementingSurprisal: true });
         const responseKeyCode =
